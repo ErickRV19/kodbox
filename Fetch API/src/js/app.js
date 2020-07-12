@@ -24,7 +24,7 @@ function generar() {
             method: "GET",
             headers: {
                 "x-rapidapi-host": "free-nba.p.rapidapi.com",
-                "x-rapidapi-key": "Tu clave",
+                "x-rapidapi-key": "tu clave",
             },
         })
         .then((response) =>
