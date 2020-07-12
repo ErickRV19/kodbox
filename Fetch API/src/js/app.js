@@ -1,8 +1,9 @@
-const url = "https://swapi.dev/api/people/";
-let personaje = document.getElementById("nombre");
-let altura = document.getElementById("altura");
-let color_cabello = document.getElementById("color_cabello");
-let color_ojo = document.getElementById("color_ojo");
+const url = "https://free-nba.p.rapidapi.com/teams?page=01";
+let equipo = document.getElementById("equipo");
+let abreviatura = document.getElementById("abreviatura");
+let conferencia = document.getElementById("conferencia");
+let division = document.getElementById("division");
+let ciudad = document.getElementById("ciudad");
 let botonPosterior = document.getElementById("posterior");
 let botonAnterior = document.getElementById("anterior");
 let num = 0;
@@ -10,25 +11,34 @@ let num = 0;
 botonPosterior.onclick = function siguiente() {
     num++;
     generar();
+    console.log("click");
 };
 botonAnterior.onclick = function siguiente() {
     num--;
+    console.log("click");
     generar();
 };
 
 function generar() {
-    fetch(url + num, {
+    fetch(url, {
             method: "GET",
+            headers: {
+                "x-rapidapi-host": "free-nba.p.rapidapi.com",
+                "x-rapidapi-key": "Tu clave",
+            },
         })
         .then((response) =>
-            response.json().then((data) => {
-                personaje.innerHTML = data.name;
-                altura.innerHTML = data.height;
-                color_cabello.innerHTML = data.hair_color;
-                color_ojo.innerHTML = data.eye_color;
+            response.json().then((datos) => {
+                console.log(datos.data[num]);
+                equipo.innerHTML = datos.data[num].full_name;
+                abreviatura.innerHTML = datos.data[num].abbreviation;
+                conferencia.innerHTML = datos.data[num].conference;
+                division.innerHTML = datos.data[num].division;
+                ciudad.innerHTML = datos.data[num].city;
             })
         )
-        .catch((err) => {
-            console.log(err);
-        });
+
+    .catch((err) => {
+        console.log(err);
+    });
 }
